@@ -1,0 +1,51 @@
+# 🔹 Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 🔹 Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# 🔹 Environment variables
+.env
+.env.*
+
+# 🔹 Flask instance folder (contains config & DB sometimes)
+instance/
+
+# 🔹 SQLite database files
+*.db
+*.sqlite3
+
+# 🔹 Migrations cache
+migrations/__pycache__/
+
+# 🔹 Logs
+*.log
+
+# 🔹 VS Code settings
+.vscode/
+
+# 🔹 PyCharm / IntelliJ
+.idea/
+
+# 🔹 Mac system files
+.DS_Store
+
+# 🔹 Windows system files
+Thumbs.db
+
+# 🔹 Test cache
+.pytest_cache/
+
+# 🔹 Coverage reports
+.coverage
+htmlcov/
+
+# 🔹 Build / dist
+build/
+dist/
+*.egg-info/

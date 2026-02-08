@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<hr>
+<h5>Comments</h5>
+{% for comment in post.comments %}
+  <p><b>{{ comment.author.username }}:</b> {{ comment.content }}</p>
+{% endfor %}
+{% if current_user.is_authenticated %}
+<form method="POST" action="{{ url_for('comments.add_comment', post_id=post.id) }}">
+    {{ form.hidden_tag() }}
+    {{ form.content(class="form-control") }}
+    {{ form.submit(class="btn btn-primary mt-2") }}
+</form>
+<h4>Leave a Comment</h4>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.content(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endif %}
+{% endblock %}

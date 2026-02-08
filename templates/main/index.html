@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="mb-4">🌟 Personal Blog</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        👋 Welcome, {{ current_user.username if current_user.is_authenticated else "Guest" }}!
+    </div>
+    {% if current_user.is_authenticated %}
+        <div>
+            <a class="btn btn-sm btn-primary" href="{{ url_for('posts.create_post') }}">New Post</a>
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('main.profile') }}">Profile</a>
+            <a class="btn btn-sm btn-danger" href="{{ url_for('auth.logout') }}">Logout</a>
+        </div>
+    {% endif %}
+</div>
+
+<hr>
+
+<!-- 🔍 Search -->
+<form method="GET" action="{{ url_for('main.search') }}" class="input-group mb-4">
+    <input type="text" name="q" class="form-control" placeholder="Search posts...">
+    <button class="btn btn-outline-secondary">Search</button>
+</form>
+
+<!-- 📝 Posts -->
+<h3 class="mb-3">Recent Blog Posts</h3>
+
+{% for post in posts %}
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="text-muted">
+            Published {{ post.date_posted.strftime('%B %d, %Y') }} | By {{ post.author.username }}
+        </p>
+        <p class="card-text">{{ post.content[:200] }}...</p>
+        <a href="{{ url_for('posts.post_detail', post_id=post.id) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+    </div>
+</div>
+{% else %}
+<p>No posts yet.</p>
+{% endfor %}
+
+<hr>
+
+<!-- 📊 Stats -->
+<div class="row text-center mb-4">
+    <div class="col-md-3"><strong>Total Posts</strong><br>{{ total_posts }}</div>
+    <div class="col-md-3"><strong>Total Comments</strong><br>{{ total_comments }}</div>
+    <div class="col-md-3"><strong>Categories</strong><br>{{ total_categories }}</div>
+    <div class="col-md-3"><strong>Most Popular</strong><br>{{ popular_post }}</div>
+</div>
+
+<hr>
+
+<!-- 📬 Subscribe -->
+<h4>📬 Subscribe to Newsletter</h4>
+<form method="POST" action="{{ url_for('main.subscribe') }}" class="input-group mb-5">
+    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+    <button class="btn btn-success">Subscribe</button>
+</form>
+
+<footer class="text-center text-muted mt-4">
+    © 2026 My Personal Blog | About | Contact | Privacy Policy
+</footer>
+
+{% endblock %}
